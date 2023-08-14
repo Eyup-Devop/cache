@@ -1,4 +1,4 @@
-module github.com/go-redis/cache/v9
+module github.com/Eyup-Devop/cache/v9
 
 go 1.13
 
