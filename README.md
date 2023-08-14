@@ -1,14 +1,14 @@
 # Redis cache library for Golang
 
 [![Build Status](https://travis-ci.org/go-redis/cache.svg)](https://travis-ci.org/go-redis/cache)
-[![GoDoc](https://godoc.org/github.com/go-redis/cache?status.svg)](https://pkg.go.dev/github.com/go-redis/cache/v9?tab=doc)
+[![GoDoc](https://godoc.org/github.com/Eyup-Devop/cache?status.svg)](https://pkg.go.dev/github.com/Eyup-Devop/cache/v9?tab=doc)
 
-> go-redis/cache is brought to you by :star:
+> Eyup-Devop/cache is brought to you by :star:
 > [**uptrace/uptrace**](https://github.com/uptrace/uptrace). Uptrace is an open source and blazingly
 > fast [distributed tracing tool](https://get.uptrace.dev/) powered by OpenTelemetry and ClickHouse.
 > Give it a star as well!
 
-go-redis/cache library implements a cache using Redis as a key/value storage. It uses
+Eyup-Devop/cache library implements a cache using Redis as a key/value storage. It uses
 [MessagePack](https://github.com/vmihailenco/msgpack) to marshal values.
 
 Optionally, you can use [TinyLFU](https://github.com/dgryski/go-tinylfu) or any other
@@ -19,7 +19,7 @@ If you are interested in monitoring cache hit rate, see the guide for
 
 ## Installation
 
-go-redis/cache supports 2 last Go versions and requires a Go version with
+Eyup-Devop/cache supports 2 last Go versions and requires a Go version with
 [modules](https://github.com/golang/go/wiki/Modules) support. So make sure to initialize a Go
 module:
 
@@ -27,10 +27,10 @@ module:
 go mod init github.com/my/repo
 ```
 
-And then install go-redis/cache/v9 (note _v9_ in the import; omitting it is a popular mistake):
+And then install Eyup-Devop/cache/v9 (note _v9_ in the import; omitting it is a popular mistake):
 
 ```shell
-go get github.com/go-redis/cache/v9
+go get github.com/Eyup-Devop/cache/v9
 ```
 
 ## Quickstart
@@ -44,7 +44,7 @@ import (
     "time"
 
     "github.com/redis/go-redis/v9"
-    "github.com/go-redis/cache/v9"
+    "github.com/Eyup-Devop/cache/v9"
 )
 
 type Object struct {
