@@ -36,6 +36,8 @@ type rediser interface {
 
 	Get(ctx context.Context, key string) *redis.StringCmd
 	Del(ctx context.Context, keys ...string) *redis.IntCmd
+
+	Scan(ctx context.Context, cursor uint64, match string, count int64) *redis.ScanCmd
 }
 
 type Item struct {
@@ -96,7 +98,7 @@ func (item *Item) ttl() time.Duration {
 	return defaultTTL
 }
 
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 type (
 	MarshalFunc   func(interface{}) ([]byte, error)
 	UnmarshalFunc func([]byte, interface{}) error
@@ -323,6 +325,44 @@ func (cd *Cache) DeleteFromLocalCache(key string) {
 	if cd.opt.LocalCache != nil {
 		cd.opt.LocalCache.Del(key)
 	}
+}
+
+func (cd *Cache) Keys(ctx context.Context, match string, count int64) *[]string {
+	var result []string = []string{}
+
+	var keys []string
+	var cursor uint64
+	var errScan error
+	var counter int64
+	var next int64
+
+	counter = count
+	for {
+		if counter < 10 {
+			next = counter
+		} else {
+			next = 10
+		}
+		keys, cursor, errScan = cd.opt.Redis.Scan(ctx, cursor, "*", next).Result()
+		if errScan != nil {
+			log.Fatal(errScan)
+		}
+
+		if keys != nil {
+			result = append(result, keys...)
+		}
+
+		counter -= next
+		if counter <= 0 {
+			break
+		}
+		if cursor == 0 {
+			break
+		}
+
+	}
+
+	return &result
 }
 
 func (cd *Cache) Marshal(value interface{}) ([]byte, error) {
