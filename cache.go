@@ -343,7 +343,7 @@ func (cd *Cache) Keys(ctx context.Context, match string, count int64) *[]string 
 		} else {
 			next = 10
 		}
-		keys, cursor, errScan = cd.opt.Redis.Scan(ctx, cursor, "*", next).Result()
+		keys, cursor, errScan = cd.opt.Redis.Scan(ctx, cursor, match, next).Result()
 		if errScan != nil {
 			log.Fatal(errScan)
 		}
