@@ -337,6 +337,10 @@ func (cd *Cache) Keys(ctx context.Context, match string, count int64) *[]string 
 	var next int64
 
 	counter = count
+	if count < 0 {
+		counter = 1<<63 - 1
+	}
+
 	for {
 		if counter < 10 {
 			next = counter
