@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"math"
 	"sync/atomic"
 	"time"
 
@@ -338,7 +339,7 @@ func (cd *Cache) Keys(ctx context.Context, match string, count int64) *[]string 
 
 	counter = count
 	if count < 0 {
-		counter = 1<<63 - 1
+		counter = math.MaxInt64
 	}
 
 	for {
